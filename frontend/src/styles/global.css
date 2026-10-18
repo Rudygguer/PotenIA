@@ -1,0 +1,58 @@
+:root {
+    --verde: #04bf7b;
+    --azul: #053ba6;
+    --azulClaro: #035aa7;
+    --naranja: #f24607;
+    --blanco: #f2efe8;
+    --gris: #9b9b9b;
+    --letraTitulos: 'Montserrat', sans-serif;
+    --letraTextos: 'Open Sans', sans-serif;
+}
+
+/* Reseteo básico para que no haya márgenes extraños */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* El fondo de la aplicación */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/imagenes/1C.png'); /* Ruta absoluta desde public */
+    background-position: center;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+/* El cuerpo de la app */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: var(--letraTextos);
+}
+
+/*  asi tengo que cambiar las fuentes. eso lo tengo que hacer despues 
+  1. Declaras la fuente personalizada 
+@font-face {
+    font-family: 'MiFuenteImpresionante';
+    src: url('fuentes/mi-fuente.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+ 2. Luego la usas en tu variable como si fuera una fuente más 
+:root {
+    --letraTitulos: 'MiFuenteImpresionante', 'Arial', sans-serif;
+    --letraTextos: 'OtraFuentePersonal', 'Open Sans', sans-serif;
+} 
+    
+Nota importante: La regla @font-face debe declararse antes de usar la variable en :root */
+
