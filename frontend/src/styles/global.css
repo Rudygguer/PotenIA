@@ -1,3 +1,36 @@
+/* 1. Declaramos las fuentes locales */
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --verde: #04bf7b;
     --azul: #053ba6;
@@ -37,8 +70,84 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: var(--letraTextos);
+    color: var(--azul); /* Color de texto por defecto */
 }
 
+/* Aquí puedes definir cómo se ven los títulos en toda la app */
+h1, h2, h3, h4, h5 {
+    font-family: var(--letraTitulos);
+    margin: 0;
+}
+
+/* --- BOTONES GLOBALES DE NAVEGACIÓN Y SALIR --- */
+#boton_salida {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+    margin-top: 20px;
+    /* Esto asegura que el botón no sea aplastado por otros elementos */
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-salir {
+    background: var(--azul);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-salir:hover {
+    transform: scale(1.1);
+    background-color: var(--naranja);
+}
+
+#botones_navegacion {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    margin-top: auto; 
+    margin-bottom: 0px; /* 👈 Quitamos el margen para que queden pegados al fondo */
+    padding-bottom: 20px; /* Un pequeño espacio interno */
+}
+
+.icono-pequeno {
+    background: var(--azul);
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icono-pequeno:hover {
+    transform: scale(1.15);
+    background-color: var(--verde);
+}
+
+.icono-svg-pequeno {
+    width: 28px; /* Ajustamos el tamaño del ícono para que quede centrado */
+    height: 28px;
+}
 /*  asi tengo que cambiar las fuentes. eso lo tengo que hacer despues 
   1. Declaras la fuente personalizada 
 @font-face {
@@ -55,4 +164,3 @@ body {
 } 
     
 Nota importante: La regla @font-face debe declararse antes de usar la variable en :root */
-

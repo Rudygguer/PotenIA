@@ -20,38 +20,61 @@ body::before {
     background-position: center;
     opacity: 0.7;
     z-index: -1;
-}    
+}
+.contenedor-principal-admin {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    position: relative; /* 👈 Necesario para que el botón de salir absoluto se posicione respecto a esta pantalla */
+    padding-bottom: 20px;
+}
+/* --- TARJETA DEL USUARIO --- */
 .TarjetaUsuario {
     display: flex;
     align-items: center;
-    gap: 100px;
-    width: 100%;
-    max-width: 450px;
-    margin: 0px auto;
+    justify-content: center;
+    gap: 2rem; 
+    width: fit-content;
+    max-width: 90%;  
+    /* AUMENTAMOS EL MARGEN: 40px arriba y abajo para separarlo del menú */
+    margin: 40px auto; 
     background-color: var(--blanco);
     border-radius: 50px;
     border: 10px solid var(--verde);
     padding: 1.5rem;
-    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
 .TarjetaUsuario img {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 10%;
     object-fit: cover;
     border: 5px solid var(--naranja);
 }
+
 .textosUsuario {
-    font-family: var(--letraTextos);
-    font-family: sans-serif;
-    font-weight: bold;
-    text-decoration: underline;
-    display: block;
-    font-size: 1.4rem;
-    line-height: 1.7;
-    word-break: break-word;
-    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
 }
+
+.textosUsuario p {
+    font-size: 1.2rem; 
+    margin: 0;
+    line-height: 1.5; 
+    font-family: var(--letraTextos); /* 👈 AQUÍ ESTABA EL ERROR (faltaba var) */
+    font-weight: bold;
+}
+
+.textosUsuario span {
+    font-weight: bold;
+    text-decoration: underline; 
+    text-decoration-color: var(--verde); 
+    text-decoration-thickness: 2px;
+}
+
+/* --- MENÚ DE ADMIN --- */
 .MenuAdmin {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -59,96 +82,65 @@ body::before {
     background-color: var(--blanco);
     border-radius: 50px;
     border: 10px solid var(--verde);
-    padding: 1.5rem;
-    box-sizing: border-box;
-    margin: 20px auto;
+    padding: 2rem; 
+    margin: 0 auto 40px auto; 
     width: 90%;
     max-width: 1200px;
 }
+
 .icono-grande {
     display: grid;
     grid-template-rows: auto auto;
     justify-items: center;
     align-items: start;
     text-decoration: none;
-    color: inherit;
-    gap: 0.5rem;
+    color: var(--azul);
+    gap: 0.8rem; 
+    transition: all 0.2s ease;
 }
-.icono-grande img {
-    grid-row: 1;
-    grid-column: 1;
-    transition: opacity 0.2s ease;
+
+/* AQUÍ ESTÁ EL CAMBIO CLAVE: Íconos más grandes (de 60px a 85px) */
+.icono-svg {
+    width: 85px; 
+    height: 85px;
+    fill: currentColor; 
 }
+
 .icono-grande span {
     grid-row: 2;
     grid-column: 1;
     text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: var(--letraTitulos); /* 👈 Agregué Montserrat aquí para que veas la diferencia */
 }
 .icono-grande:hover {
-    transform: scale(1.20);
-    transition: all 0.2s ease;
-    outline-offset: 3px;
+    transform: scale(1.15);
+    color: var(--verde);
 }
+
+/* --- BOTÓN SALIR --- */
 #boton_salida {
     display: flex;
     justify-content: flex-end;
     margin-right: 20px;
     margin-top: 20px;
 }
-.icono-pequeno {
-    display: inline-grid;
-    grid-template-rows: auto auto;
-    justify-items: center;
-}
-.icono-pequeno img {
-    grid-row: 1;
-    grid-column: 1;
-    transition: opacity 0.2s ease;
-}
-.icono-pequeno span {
-    grid-row: 2;
-    grid-column: 1;
-}
-.icono-pequeno:hover {
-    transform: scale(1.25);
-    transition: all 0.25s ease;
-}
-#botones_navegacion {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 30px;
-    box-sizing: border-box;
-    margin-top: auto;
-    margin-bottom: 20px;
-}
-.icono-grande .icono-verde,
-.icono-pequeno .icono-verde {
-    opacity: 0;
-}
-.icono-grande .icono-normal,
-.icono-pequeno .icono-normal {
-    opacity: 1;
-}
-.icono-grande:hover .icono-normal,
-.icono-pequeno:hover .icono-normal {
-    opacity: 0;
-}
-.icono-grande:hover .icono-verde,
-.icono-pequeno:hover .icono-verde {
-    opacity: 1;
-}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 991px) and (min-width: 600px) {
     .MenuAdmin {
         grid-template-columns: repeat(3, 1fr);
-        gap: 1.2rem;
+        gap: 1.5rem;
     }
 }
 @media (max-width: 599px) {
     .MenuAdmin {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 1.5rem; 
+    }
+    .icono-svg {
+        width: 70px; 
+        height: 70px;
     }
 }

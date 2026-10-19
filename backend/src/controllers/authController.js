@@ -29,6 +29,7 @@ const login = async (req, res) => {
             usuario: {
                 id: usuarioDB.id_usuario,
                 nombre: usuarioDB.nombre,
+                numero_empleado: usuarioDB.numero_empleado,
                 rol: usuarioDB.rol
             }
         });

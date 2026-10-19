@@ -1,60 +1,74 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/MenuAdminPage.css'; 
 
+// Importamos nuestros componentes reutilizables
+import BotonSalir from '../components/BotonSalir';
+import BarraNavegacion from '../components/BarraNavegacion'; 
+
+// Importamos los íconos del menú
+import IconoUsuarios from '../../public/icons/Gestion de usuarios.svg?react';
+import IconoProductos from '../../public/icons/Gestion de productos.svg?react';
+import IconoDashboard from '../../public/icons/Dashboard metricas.svg?react';
+import IconoQR from '../../public/icons/Generar QR.svg?react';
+import IconoReportes from '../../public/icons/Reporte de daños.svg?react';
+import IconoIA from '../../public/icons/Generar informe IA.svg?react';
+
 function MenuAdminPage() {
-    const navigate = useNavigate();
-    
-    // Recuperamos los datos del usuario que guardamos en el Login
     const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
 
-    // Función para cerrar sesión
-    const handleLogout = () => {
-        localStorage.removeItem('usuario'); 
-        navigate('/login'); 
+    const obtenerAvatar = (rol) => {
+        if (rol === 'admin') {
+            return '/imagenes/avatares/admin_hombre.jpeg';
+        } else {
+            return '/imagenes/avatares/almacenista_hombre.jpeg';
+        }
     };
 
     return (
-        <div>
-            {/* Botón de salir arriba a la derecha */}
-            <div className="salida" id="boton_salida">
-                <button onClick={handleLogout} style={{background: 'none', border: 'none', cursor: 'pointer', color: 'var(--azul)', fontWeight: 'bold'}}>
-                    Cerrar Sesión
-                </button>
-            </div>
+        <div className="contenedor-principal-admin">
+            
+            {/* 👈 Botón de salir reutilizable */}
+            <BotonSalir />
 
-            {/* Tarjeta del Usuario */}
             <div className="TarjetaUsuario" id="T_usuario">
                 <div className="textosUsuario">
-                    <h5>Nombre: {usuarioGuardado?.nombre || 'Admin'}</h5>
-                    <h5>Rol: {usuarioGuardado?.rol || 'admin'}</h5>
-                    <h5>ID: {usuarioGuardado?.id || '000'}</h5>
+                    <p>Nombre: {usuarioGuardado?.nombre || 'Admin'}</p>
+                    <p>Rol: {usuarioGuardado?.rol || 'admin'}</p>
+                    <p>N° Empleado: {usuarioGuardado?.numero_empleado || 'EMP-000'}</p>
                 </div>
-                <img src="/imagenes/Usuario.png" alt="Usuario Admin" />
+                <img src={obtenerAvatar(usuarioGuardado?.rol)} alt="Usuario Admin" />
             </div>
 
-            {/* Menú de Opciones */}
             <div className="MenuAdmin" id="M_admin">
                 <Link to="/usuarios" className="icono-grande">
-                    {/* <img src="/icons/Gestion de usuarios.svg" alt="Usuarios" /> */}
+                    <IconoUsuarios className="icono-svg" />
                     <span>Gestión de usuarios</span>
                 </Link>
                 <Link to="/productos" className="icono-grande">
-                    {/* <img src="/icons/Gestion de productos.svg" alt="Productos" /> */}
+                    <IconoProductos className="icono-svg" />
                     <span>Gestión de productos</span>
                 </Link>
                 <Link to="/dashboard" className="icono-grande">
+                    <IconoDashboard className="icono-svg" />
                     <span>Dashboard de métricas</span>
                 </Link>
                 <Link to="/qr" className="icono-grande">
+                    <IconoQR className="icono-svg" />
                     <span>Generar QR</span>
                 </Link>
                 <Link to="/reportes" className="icono-grande">
+                    <IconoReportes className="icono-svg" />
                     <span>Reportes de daños</span>
                 </Link>
                 <Link to="/ia" className="icono-grande">
+                    <IconoIA className="icono-svg" />
                     <span>Generar informe IA</span>
                 </Link>
             </div>
+
+            {/* 👈 Barra de navegación reutilizable */}
+            <BarraNavegacion />
+            
         </div>
     );
 }
