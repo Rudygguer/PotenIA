@@ -148,19 +148,62 @@ h1, h2, h3, h4, h5 {
     width: 28px; /* Ajustamos el tamaño del ícono para que quede centrado */
     height: 28px;
 }
-/*  asi tengo que cambiar las fuentes. eso lo tengo que hacer despues 
-  1. Declaras la fuente personalizada 
-@font-face {
-    font-family: 'MiFuenteImpresionante';
-    src: url('fuentes/mi-fuente.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+
+
+/* --- ESTILOS GLOBALES PARA MODALES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
 }
 
- 2. Luego la usas en tu variable como si fuera una fuente más 
-:root {
-    --letraTitulos: 'MiFuenteImpresionante', 'Arial', sans-serif;
-    --letraTextos: 'OtraFuentePersonal', 'Open Sans', sans-serif;
-} 
-    
-Nota importante: La regla @font-face debe declararse antes de usar la variable en :root */
+.modal-caja {
+    background-color: var(--blanco);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px; /* Tamaño máximo en PC */
+    text-align: center;
+    position: relative;
+    /* Por defecto verde, pero podemos cambiarlo con clases extra */
+    border: 8px solid var(--verde); 
+}
+
+/* Clases extra para cambiar el color del borde según el caso */
+.modal-caja.error { border-color: var(--naranja); }
+.modal-caja.exito { border-color: var(--verde); }
+
+.modal-caja h3 {
+    margin-top: 0;
+    color: var(--azul);
+    font-size: 1.8rem;
+}
+
+.modal-caja p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-modal {
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-modal:hover {
+    background-color: var(--naranja);
+}
