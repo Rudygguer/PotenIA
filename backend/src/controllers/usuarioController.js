@@ -6,7 +6,7 @@ const obtenerUsuarios = async (req, res) => {
     try {
         const query = 'SELECT id_usuario, nombre, numero_empleado, email, rol, avatar, activo FROM usuarios ORDER BY id_usuario ASC';
         const resultado = await pool.query(query);
-        // Corregido: Era 'res.jason' (con j), lo correcto es 'res.json'
+            console.log("Usuarios encontrados en BD:", resultado.rows.length);
         res.json(resultado.rows);
     } catch (error) {
         console.error(error);
@@ -31,10 +31,9 @@ const crearUsuario = async (req, res) => {
 
         // aqui se guarda en la DB 
         const query = `INSERT INTO usuarios (nombre, email, password, rol, avatar) 
-                       VALUES ($1, $2, $3, $4, $5) RETURNING id_usuario, nombre, rol`;
+                       VALUES ($1, $2, $3, $4, $5) RETURNING id_usuario, nombre, rol, numero_empleado`;
 
         const nuevoUsuario = await pool.query(query, [nombre, email, passwordEncriptada, rol, avatar]);
-
         // retorna el status 201 creado con exito 
         res.status(201).json({ mensaje: 'Usuario creado con éxito', usuario: nuevoUsuario.rows[0]});
     } catch (error) {
@@ -74,10 +73,23 @@ const eliminarUsuario = async (req, res) => {
     }
 };
 
+// Funcion para reactivar un usuario
+const reactivarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('UPDATE usuarios SET activo = true WHERE id_usuario = $1', [id]);
+        res.json({ mensaje: 'Usuario reactivado correctamente' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ mensaje: 'Error al reactivar usuario' });
+    }
+};
+
 // se exportan las funciones para que las rutas puedan usarlas.
 module.exports = {
     obtenerUsuarios,
     crearUsuario,
     actualizarUsuario,
-    eliminarUsuario
+    eliminarUsuario,
+    reactivarUsuario
 };

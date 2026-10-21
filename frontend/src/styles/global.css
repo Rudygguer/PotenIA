@@ -207,3 +207,43 @@ h1, h2, h3, h4, h5 {
 .btn-modal:hover {
     background-color: var(--naranja);
 }
+
+/* --- TARJETA SUPERIOR DE MÓDULOS --- */
+.tarjeta-modulo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--blanco);
+    border: 5px solid var(--verde);
+    border-radius: 20px;
+    padding: 10px 25px;
+    width: fit-content;
+    margin: 40px auto 20px auto; /* Centrado con márgenes */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.icono-modulo {
+    background-color: var(--azul);
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Para que el ícono SVG se adapte al cuadro azul */
+.icono-modulo svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+.texto-modulo {
+    color: var(--azul);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+    max-width: 200px; /* Para que el texto baje de línea si es muy largo */
+}

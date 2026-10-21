@@ -16,11 +16,16 @@ import IconoIA from '../../public/icons/Generar informe IA.svg?react';
 function MenuAdminPage() {
     const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
 
-    const obtenerAvatar = (rol) => {
-        if (rol === 'admin') {
-            return '/imagenes/avatares/admin_hombre.jpeg';
+    const obtenerAvatar = (usuario) => {
+        // Si el usuario ya tiene un avatar guardado, lo usamos
+        if (usuario && usuario.avatar) {
+            return `/imagenes/avatares/${usuario.avatar}`;
+        }
+        // Si no tiene, usamos uno por defecto según el rol
+        if (usuario && usuario.rol === 'admin') {
+            return '/imagenes/avatares/admin_hombre_1.jpeg';
         } else {
-            return '/imagenes/avatares/almacenista_hombre.jpeg';
+            return '/imagenes/avatares/almacenista_hombre_1.jpeg';
         }
     };
 
@@ -36,7 +41,7 @@ function MenuAdminPage() {
                     <p>Rol: {usuarioGuardado?.rol || 'admin'}</p>
                     <p>N° Empleado: {usuarioGuardado?.numero_empleado || 'EMP-000'}</p>
                 </div>
-                <img src={obtenerAvatar(usuarioGuardado?.rol)} alt="Usuario Admin" />
+                <img src={obtenerAvatar(usuarioGuardado)} alt="Usuario Admin" />
             </div>
 
             <div className="MenuAdmin" id="M_admin">

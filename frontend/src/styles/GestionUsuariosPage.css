@@ -1,0 +1,296 @@
+/* --- HEADER Y TÍTULO --- */
+.header-modulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.titulo-pagina {
+    text-align: center;
+    color: var(--azul);
+    font-size: 2rem;
+}
+
+/* --- CONTENEDOR VERDE PRINCIPAL --- */
+.contenedor-lista-verde {
+    background-color: rgba(242, 239, 232, 0.9);
+    border: 6px solid var(--verde);
+    border-radius: 40px;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* --- BARRA DE BÚSQUEDA Y FILTRO --- */
+.barra-acciones-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 500px) {
+    .barra-acciones-filtros {
+        flex-direction: row;
+    }
+}
+
+.input-busqueda {
+    flex: 1;
+    background-color: var(--verde);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 12px 15px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.input-busqueda::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.select-filtro {
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px solid var(--verde);
+    background-color: white;
+    color: var(--azul);
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+/* --- LISTA DE USUARIOS --- */
+.lista-usuarios {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 10px;
+}
+
+.lista-usuarios::-webkit-scrollbar { width: 8px; }
+.lista-usuarios::-webkit-scrollbar-thumb { background-color: var(--verde); border-radius: 10px; }
+
+.mensaje-vacio {
+    text-align: center;
+    color: var(--gris);
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* --- TARJETA DE USUARIO --- */
+.item-usuario {
+    background-color: var(--verde);
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+}
+
+.item-usuario:hover { transform: scale(1.02); }
+.item-usuario.seleccionado { background-color: var(--azul); box-shadow: 0 0 10px var(--azul); }
+.item-usuario.inactivo { opacity: 0.5; background-color: var(--gris); }
+
+.info-usuario-lista { display: flex; align-items: center; gap: 15px; }
+.avatar-miniatura { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--blanco); }
+.nombre-lista { font-weight: bold; font-size: 0.95rem; display: block; }
+.rol-badge { background-color: var(--blanco); color: var(--verde); padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: bold; text-transform: capitalize;}
+
+/* --- BOTONES DE ACCIÓN INFERIORES --- */
+.botones-crud-inferiores {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px dashed rgba(4, 191, 123, 0.3);
+}
+
+.btn-crud-accion {
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* El círculo azul */
+.circulo-icono {
+    width: 55px; 
+    height: 55px; 
+    background-color: var(--azul); 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+/* El ícono de adentro (blanco) */
+.circulo-icono svg {
+    width: 32px; 
+    height: 32px;
+    fill: white; 
+}
+
+.texto-btn {
+    font-family: var(--letraTextos);
+    font-size: 0.85rem; 
+    font-weight: bold;
+    color: var(--azul); 
+    transition: 0.2s;
+}
+
+/* Efectos al pasar el mouse */
+.btn-crud-accion:hover .circulo-icono {
+    background-color: var(--verde); 
+    transform: translateY(-3px);
+}
+
+.btn-crud-accion:hover .texto-btn {
+    color: var(--verde); 
+}
+
+/* Caso especial para el botón de eliminar */
+.btn-eliminar-texto:hover .circulo-icono {
+    background-color: var(--naranja);
+}
+.btn-eliminar-texto:hover .texto-btn {
+    color: var(--naranja);
+}
+
+/* --- FORMULARIO MODAL --- */
+.formulario-usuario { display: flex; flex-direction: column; text-align: left; gap: 10px; margin-top: 15px; }
+.formulario-usuario label { font-weight: bold; color: var(--azul); margin-top: 5px; font-size: 0.9rem; }
+.formulario-usuario input, .formulario-usuario select {
+    padding: 10px; border: 2px solid var(--gris); border-radius: 8px; font-size: 1rem;
+}
+
+/* --- VISTA PREVIA DEL AVATAR EN EL FORMULARIO --- */
+.avatar-actual-preview {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    background-color: rgba(4, 191, 123, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px dashed var(--verde);
+    margin-bottom: 10px;
+}
+
+.avatar-actual-preview img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--naranja);
+}
+
+.avatar-actual-preview span {
+    color: var(--azul);
+    font-weight: bold;
+}
+
+/* --- CARRUSEL DE AVATARES (MODAL) --- */
+.carrusel-avatares {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.btn-flecha {
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.btn-flecha:hover { background-color: var(--verde); transform: scale(1.1); }
+
+.avatar-grande-contenedor {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid var(--naranja);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.avatar-grande {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- BOTONES DE LOS MODALES --- */
+.botones-formulario { display: flex; justify-content: space-between; margin-top: 20px; }
+
+.btn-cancelar {
+    background-color: var(--gris);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-cancelar:hover {
+    background-color: #7a7a7a;
+}
+
+.btn-eliminar {
+    background-color: var(--naranja);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-eliminar:hover {
+    background-color: #d13c06;
+}
+
+.btn-guardar {
+    background-color: var(--verde);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}

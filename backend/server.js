@@ -6,6 +6,7 @@ require('dotenv').config();
 // 2. Importamos nuestro archivo de base de datos y las rutas
 const pool = require('./src/config/database'); 
 const authRoutes = require('./src/routes/authRoutes');
+const usuarioRoutes = require('./src/routes/usuarioRoutes');
 
 // 3. Inicializamos Express (crea la aplicación)
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json()); // Permite que Node entienda los datos en formato JSON 
 // 5. RUTAS (Las puertas de entrada a nuestra API)
 // Le decimos: "Cualquier petición que empiece con /api/auth, mándala a authRoutes"
 app.use('/api/auth', authRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 
 // Ruta de prueba para ver si el servidor está vivo
 app.get('/api/health', (req, res) => {

@@ -19,6 +19,10 @@ const login = async (req, res) => {
         const usuarioDB = resultado.rows[0];
 
         // 4. Verificamos la contraseña (por ahora texto plano, luego usaremos bcrypt)
+        if (!usuarioDB.activo) {
+            // 403 significa "Prohibido" (el usuario existe, pero no tiene permiso)
+            return res.status(403).json({ mensaje: 'Tu usuario está desactivado. Por favor, contacta al administrador.' });
+        }
         if (password !== usuarioDB.password) {
             return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         }
@@ -30,7 +34,8 @@ const login = async (req, res) => {
                 id: usuarioDB.id_usuario,
                 nombre: usuarioDB.nombre,
                 numero_empleado: usuarioDB.numero_empleado,
-                rol: usuarioDB.rol
+                rol: usuarioDB.rol,
+                avatar: usuarioDB.avatar 
             }
         });
 
@@ -41,3 +46,7 @@ const login = async (req, res) => {
 };
 
 module.exports = { login };
+
+
+
+
