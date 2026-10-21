@@ -44,7 +44,7 @@
 
 .input-busqueda {
     flex: 1;
-    background-color: var(--verde);
+    background-color: var(--azulClaro);
     border: none;
     color: white;
     font-size: 1rem;

@@ -1,5 +1,5 @@
 const pool = require('../config/database'); // Traemos la conexión a PostgreSQL
-
+const bcrypt = require('bcryptjs');
 // Función para el Login
 const login = async (req, res) => {
     try {
@@ -18,16 +18,20 @@ const login = async (req, res) => {
 
         const usuarioDB = resultado.rows[0];
 
-        // 4. Verificamos la contraseña (por ahora texto plano, luego usaremos bcrypt)
+        // 4. Verificamos si el usuario está activo
         if (!usuarioDB.activo) {
             // 403 significa "Prohibido" (el usuario existe, pero no tiene permiso)
             return res.status(403).json({ mensaje: 'Tu usuario está desactivado. Por favor, contacta al administrador.' });
         }
-        if (password !== usuarioDB.password) {
+
+        // 5. Verificamos la contraseña usando bcrypt (compara el texto plano con el hash encriptado)
+        const passwordValida = await bcrypt.compare(password, usuarioDB.password);
+        
+        if (!passwordValida) {
             return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         }
 
-        // 5. Si todo está bien, respondemos con éxito
+        // 6. Si todo está bien, respondemos con éxito
         res.json({
             mensaje: 'Login exitoso',
             usuario: {

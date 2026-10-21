@@ -99,7 +99,8 @@ function GestionUsuariosPage() {
                     nombre: formData.nombre,
                     email: formData.email,
                     rol: formData.rol,
-                    avatar: formData.avatar
+                    avatar: formData.avatar,
+                    password: formData.password
                 });
                 setExito('Usuario actualizado correctamente');
             } else {
@@ -213,6 +214,7 @@ function GestionUsuariosPage() {
                                     <img src={`/imagenes/avatares/${user.avatar}`} alt="Avatar" className="avatar-miniatura" />
                                     <div>
                                         <span className="nombre-lista">{user.nombre}</span>
+                                        <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color:'var(--azul)' }}>{user.numero_empleado} </span> &nbsp; &nbsp; &nbsp; 
                                         <span className="rol-badge">{user.rol}</span>
                                     </div>
                                 </div>
@@ -258,15 +260,31 @@ function GestionUsuariosPage() {
                         <label>Nombre Completo</label>
                         <input type="text" value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} required />
 
+                        {/* NUEVO: Mostrar número de empleado solo cuando se está editando */}
+                        {editando && (
+                            <>
+                                <label>Número de Empleado</label>
+                                <input 
+                                    type="text" 
+                                    value={usuarioSeleccionado?.numero_empleado || ''} 
+                                    disabled 
+                                    style={{ backgroundColor: '#e0e0e0', color: '#666', cursor: 'not-allowed' }}
+                                />
+                            </>
+                        )}
+
                         <label>Correo Electrónico</label>
                         <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
                         
-                        {!editando && (
-                            <>
-                                <label>Contraseña</label>
-                                <input type="password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} required />
-                            </>
-                        )}
+                        <label>{editando ? 'Nueva Contraseña (Opcional)' : 'Contraseña'}</label>
+                        <input 
+                            type="password" 
+                            value={formData.password} 
+                            onChange={(e) => setFormData({...formData, password: e.target.value})} 
+                            /*  required={!editando} hace que sea obligatorio al crear, pero opcional al editar */
+                            required={!editando} 
+                            placeholder={editando ? "Dejar en blanco para mantener la actual" : ""}
+                        />
 
                         <label>Rol</label>
                         <select value={formData.rol} onChange={(e) => setFormData({...formData, rol: e.target.value})}>
