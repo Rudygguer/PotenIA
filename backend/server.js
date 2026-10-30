@@ -7,6 +7,7 @@ require('dotenv').config();
 const pool = require('./src/config/database'); 
 const authRoutes = require('./src/routes/authRoutes');
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
+const productoRoutes = require('./src/routes/productoRoutes');
 
 // 3. Inicializamos Express (crea la aplicación)
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.json()); // Permite que Node entienda los datos en formato JSON 
 // Le decimos: "Cualquier petición que empiece con /api/auth, mándala a authRoutes"
 app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/productos', productoRoutes); 
 
 // Ruta de prueba para ver si el servidor está vivo
 app.get('/api/health', (req, res) => {
