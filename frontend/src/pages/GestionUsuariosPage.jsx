@@ -9,10 +9,7 @@ import BarraNavegacion from '../components/BarraNavegacion';
 import Modal from '../components/Modal';
 import HeaderModulo from '../components/HeaderModulo';
 import IconoUsuarios from '../../public/icons/Gestion de usuarios.svg?react'; 
-import IconoNuevo from '../../public/icons/nuevo.svg?react'; 
-import IconoEditar from '../../public/icons/editar.svg?react'; 
-import IconoEliminar from '../../public/icons/eliminar.svg?react'; 
-import IconoReactivar from '../../public/icons/reactivar.svg?react'; 
+import BotonesCrud from '../components/BotonesCrud';
 
 function GestionUsuariosPage() {
 
@@ -225,30 +222,14 @@ function GestionUsuariosPage() {
                     )}
                 </div>
 
-
-                <div className="botones-crud-inferiores">
-                    <button className="btn-crud-accion" onClick={abrirCrear}>
-                        <div className="circulo-icono"><IconoNuevo /></div>
-                        <span className="texto-btn">Nuevo</span>
-                    </button>
-                    
-                    <button className="btn-crud-accion" onClick={abrirEditar}>
-                        <div className="circulo-icono"><IconoEditar /></div>
-                        <span className="texto-btn">Editar</span>
-                    </button>
-                    
-                    {usuarioSeleccionado && !usuarioSeleccionado.activo ? (
-                        <button className="btn-crud-accion btn-reactivar" onClick={reactivarUsuario}>
-                            <div className="circulo-icono"><IconoReactivar /></div>
-                            <span className="texto-btn">Reactivar</span>
-                        </button>
-                    ) : (
-                        <button className="btn-crud-accion btn-eliminar-texto" onClick={solicitarEliminar}>
-                            <div className="circulo-icono"><IconoEliminar /></div>
-                            <span className="texto-btn">Eliminar</span>
-                        </button>
-                    )}
-                </div>
+                        <BotonesCrud
+                            onNuevo={abrirCrear}
+                            onEditar={abrirEditar}
+                            onEliminar={solicitarEliminar}
+                            onReactivar={reactivarUsuario}
+                            mostrarReactivar={usuarioSeleccionado && !usuarioSeleccionado.activo}
+                        />
+                
             </div> 
 
             {/* MODAL: FORMULARIO CREAR/EDITAR */}
