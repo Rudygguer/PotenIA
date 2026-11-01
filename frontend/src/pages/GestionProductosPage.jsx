@@ -108,6 +108,20 @@ function GestionProductosPage() {
     // ---------- FUNCIONES: GUARDAR (crear o editar) ----------
     const guardarProducto = async (e) => {
         e.preventDefault(); // evita que el navegador recargue la página al enviar
+
+        if (formData.stock < 0 ) {
+            setError ('Stock debe ser un entero mayor o igual a 0');
+            return;
+        }
+        if (!formData.nombre.trim() || !formData.descripcion_producto.trim()) {  
+            setError ('Los campos nombre y descripción no pueden quedar vacíos');
+            return;
+            }
+        if (!formData.id_proveedor || !formData.id_ubicacion) {  
+            setError ('Los campos proveedor y ubicación no pueden quedar vacíos');
+            return;
+            }
+
         try {
             if (editando) {
                 // PUT = editar. El id va en la URL
@@ -226,7 +240,7 @@ function GestionProductosPage() {
             {modalFormulario && (
                 <Modal tipo="exito" onClose={() => setModalFormulario(false)}>
                     <h3>{editando ? 'Editar Producto' : 'Registrar Producto'}</h3>
-                    <form onSubmit={guardarProducto} className="formulario-usuario">
+                    <form onSubmit={guardarProducto} className="formulario-usuario" noValidate>
 
                         <label>Nombre</label>
                         <input
