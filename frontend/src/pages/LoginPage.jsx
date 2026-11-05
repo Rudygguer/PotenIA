@@ -38,7 +38,7 @@ function LoginPage() {
                 navigate('/admin');
             } else {
                 // navigate('/almacenista'); // Lo haremos luego
-                alert("Eres almacenista, aún no tenemos esa vista");
+               navigate('/almacenista') ;
             }
 
         } catch (err) {
@@ -54,7 +54,7 @@ function LoginPage() {
     return (
         <div className="contenedor-principal-login">
             <div className="Logo-PotenIA">
-                <img className="icono-medio" src="/imagenes/Logo Potenia.png" alt="Logo" />
+                <img className="icono-medio" src="/imagenes/Logo_Potenia.png" alt="Logo" />
             </div>
 
             <div className="contenedor-login">

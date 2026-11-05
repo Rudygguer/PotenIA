@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage';
 import MenuAdminPage from './pages/MenuAdminPage';
 import GestionUsuariosPage from './pages/GestionUsuariosPage';
 import GestionProductosPage from './pages/GestionProductosPage';
+import MenuAlmacenistaPage from './pages/MenuAlmacenistaPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/admin" element={<MenuAdminPage />} />
       <Route path="/usuarios" element={<GestionUsuariosPage />} />
       <Route path="/productos" element={<GestionProductosPage />} />
+      <Route path="/almacenista" element={<MenuAlmacenistaPage />} /> 
     </Routes>
   );
 }
