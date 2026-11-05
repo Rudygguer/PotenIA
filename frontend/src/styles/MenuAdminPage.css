@@ -78,18 +78,19 @@ body::before {
 .MenuAdmin {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
+    gap: 2rem;
     background-color: var(--blanco);
     border-radius: 50px;
     border: 10px solid var(--verde);
     padding: 2rem; 
     margin: 0 auto 40px auto; 
-    width: auto;
-    max-width: auto;
+    width: 90%;
+    max-width: 600px;
 }
 .menu-tres {
     grid-template-columns: repeat(2, 1fr);
     max-width: 500px;
+    gap: 2rem;
 }
 
 .icono-grande {
