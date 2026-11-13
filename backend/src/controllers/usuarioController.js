@@ -18,7 +18,11 @@ const crearUsuario = async (req, res) => {
     try {
         const { nombre, email, password, rol, avatar } = req.body;
         
-        const emailExiste = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+        // NUEVO: Convertimos el correo a minúsculas
+        const emailMinuscula = email.toLowerCase();
+        
+        // Usamos emailMinuscula en la consulta
+        const emailExiste = await pool.query('SELECT * FROM usuarios WHERE email = $1', [emailMinuscula]);
 
         if (emailExiste.rows.length > 0) {
             return res.status(400).json({ mensaje: 'El correo ya se encuentra registrado' });
@@ -27,11 +31,11 @@ const crearUsuario = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const passwordEncriptada = await bcrypt.hash(password, salt);
 
-        // La base de datos genera el número de empleado automáticamente, así que no lo enviamos.
+        // Usamos emailMinuscula en el INSERT
         const query = `INSERT INTO usuarios (nombre, email, password, rol, avatar) 
                        VALUES ($1, $2, $3, $4, $5) RETURNING id_usuario, nombre, rol, numero_empleado`;
 
-        const nuevoUsuario = await pool.query(query, [nombre, email, passwordEncriptada, rol, avatar]);
+        const nuevoUsuario = await pool.query(query, [nombre, emailMinuscula, passwordEncriptada, rol, avatar]);
 
         res.status(201).json({ mensaje: 'Usuario creado con éxito', usuario: nuevoUsuario.rows[0] });
     } catch (error) {
@@ -46,11 +50,21 @@ const actualizarUsuario = async (req, res) => {
         const { id } = req.params;
         const { nombre, email, rol, avatar, password } = req.body;
 
-        // Preparamos la consulta base (sin contraseña)
+        // NUEVO: Convertimos el correo a minúsculas
+        const emailMinuscula = email.toLowerCase();
+
+        // NUEVO: Validación de correo duplicado
+        const emailDuplicado = await pool.query('SELECT id_usuario FROM usuarios WHERE email = $1', [emailMinuscula]);
+        
+        if (emailDuplicado.rows.length > 0 && emailDuplicado.rows[0].id_usuario !== parseInt(id)) {
+            return res.status(400).json({ mensaje: 'El correo ya se encuentra registrado por otro usuario' });
+        }
+
+        // Preparamos la consulta base (usando emailMinuscula)
         let query = `UPDATE usuarios 
                      SET nombre = $1, email = $2, rol = $3, avatar = $4 
                      WHERE id_usuario = $5 RETURNING *`;
-        let valores = [nombre, email, rol, avatar, id];
+        let valores = [nombre, emailMinuscula, rol, avatar, id];
 
         // Si el admin escribió una nueva contraseña, la encriptamos y la actualizamos
         if (password && password.trim() !== '') {
@@ -60,7 +74,7 @@ const actualizarUsuario = async (req, res) => {
             query = `UPDATE usuarios 
                      SET nombre = $1, email = $2, rol = $3, avatar = $4, password = $5 
                      WHERE id_usuario = $6 RETURNING *`;
-            valores = [nombre, email, rol, avatar, passwordEncriptada, id];
+            valores = [nombre, emailMinuscula, rol, avatar, passwordEncriptada, id];
         }
 
         await pool.query(query, valores);
