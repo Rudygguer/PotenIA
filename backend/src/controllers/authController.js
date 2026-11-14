@@ -1,5 +1,6 @@
 const pool = require('../config/database'); // Traemos la conexión a PostgreSQL
 const bcrypt = require('bcryptjs');
+const jsonwebtoken = require('jsonwebtoken');
 // Función para el Login
 const login = async (req, res) => {
     try {
@@ -31,9 +32,17 @@ const login = async (req, res) => {
             return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         }
 
+        // 5.1 Creamos el token con los datos que el backend necesitará después
+        const token = jsonwebtoken.sign(
+            { id: usuarioDB.id_usuario, rol: usuarioDB.rol }, // 1. qué guarda el token
+                process.env.JWT_SECRET,                            // 2. con qué clave se firma
+                    { expiresIn: '1h' }                                // 3. cuánto dura
+);
+
         // 6. Si todo está bien, respondemos con éxito
         res.json({
             mensaje: 'Login exitoso',
+            token: token,
             usuario: {
                 id: usuarioDB.id_usuario,
                 nombre: usuarioDB.nombre,
