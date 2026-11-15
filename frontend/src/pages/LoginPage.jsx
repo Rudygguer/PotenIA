@@ -32,6 +32,7 @@ function LoginPage() {
             
             // Guardamos los datos del usuario en el navegador (localStorage)
             localStorage.setItem('usuario', JSON.stringify(respuesta.data.usuario));
+            localStorage.setItem('token', respuesta.data.token);
 
             // Redirigimos según el rol
             if (respuesta.data.usuario.rol === 'admin') {

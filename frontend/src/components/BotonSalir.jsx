@@ -5,7 +5,8 @@ function BotonSalir() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('usuario'); 
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('token');
         navigate('/login'); 
     };
 

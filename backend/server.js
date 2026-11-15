@@ -10,6 +10,7 @@ const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const productoRoutes = require('./src/routes/productoRoutes');
 const proveedorRoutes = require('./src/routes/proveedorRoutes');
 const ubicacionRoutes = require('./src/routes/ubicacionRoutes');
+const { verificarToken, verificarPermisos } = require('./src/middleware/authMiddleware');
 
 // 3. Inicializamos Express (crea la aplicación)
 const app = express();
@@ -21,16 +22,14 @@ app.use(express.json()); // Permite que Node entienda los datos en formato JSON 
 
 // 5. RUTAS (Las puertas de entrada a nuestra API)
 // Le decimos: "Cualquier petición que empiece con /api/auth, mándala a authRoutes"
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);                 // público: aquí se consigue el token
+app.get('/api/health', (req, res) => {res.json({ status: 'OK', message: 'API de PotenIA funcionando' });});   // público (muévelo aquí, antes del filtro)
+app.use('/api', verificarToken, verificarPermisos); // desde aquí, TODO exige token y permiso
 app.use('/api/usuarios', usuarioRoutes);
-app.use('/api/productos', productoRoutes); 
+app.use('/api/productos', productoRoutes);
 app.use('/api/proveedores', proveedorRoutes);
 app.use('/api/ubicaciones', ubicacionRoutes);
 
-// Ruta de prueba para ver si el servidor está vivo
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', message: 'API de PotenIA funcionando' });
-});
 
 // 6. Encendemos el servidor
 app.listen(PORT, () => {

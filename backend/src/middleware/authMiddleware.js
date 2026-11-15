@@ -1,4 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken');
+const permisos = require('../config/permisos');
 
 const verificarToken = (req, res, next) => {
     // 1. Leemos el encabezado que manda el cliente
@@ -26,12 +27,14 @@ const verificarToken = (req, res, next) => {
     }
 };
 
-const soloAdmin = (req, res, next) => {
-    // req.usuario lo guardó verificarToken (el { id, rol } del token)
-    if (req.usuario.rol !== 'admin') {
-        return res.status(403).json({ mensaje: 'Acceso denegado: se requiere rol de administrador' });
+const verificarPermisos = (req, res, next) => {
+    const modulo = req.path.split('/')[1];                       // "/productos/5" → "productos"
+    const metodosPermitidos = permisos[modulo]?.[req.usuario.rol]; // métodos de ese rol en ese módulo
+
+    if (!metodosPermitidos || !metodosPermitidos.includes(req.method)) {
+        return res.status(403).json({ mensaje: 'No tienes permiso para esta acción' });
     }
     next();
 };
 
-module.exports = { verificarToken, soloAdmin };
+module.exports = { verificarToken, verificarPermisos };
