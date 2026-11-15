@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { obtenerUsuarios, crearUsuario, actualizarUsuario, eliminarUsuario, reactivarUsuario } = require('../controllers/usuarioController');
-const { verificarToken } = require('../middleware/authMiddleware');
+const { verificarToken, soloAdmin } = require('../middleware/authMiddleware');
 
-router.use(verificarToken);
+
+router.use(verificarToken, soloAdmin);
 router.get('/', obtenerUsuarios);
 router.post('/', crearUsuario);
 router.put('/:id', actualizarUsuario);

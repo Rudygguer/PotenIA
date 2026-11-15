@@ -26,4 +26,12 @@ const verificarToken = (req, res, next) => {
     }
 };
 
-module.exports = { verificarToken };
+const soloAdmin = (req, res, next) => {
+    // req.usuario lo guardó verificarToken (el { id, rol } del token)
+    if (req.usuario.rol !== 'admin') {
+        return res.status(403).json({ mensaje: 'Acceso denegado: se requiere rol de administrador' });
+    }
+    next();
+};
+
+module.exports = { verificarToken, soloAdmin };
