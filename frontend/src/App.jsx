@@ -5,6 +5,7 @@ import GestionUsuariosPage from './pages/GestionUsuariosPage';
 import GestionProductosPage from './pages/GestionProductosPage';
 import MenuAlmacenistaPage from './pages/MenuAlmacenistaPage';
 import RutaProtegida from './components/RutaProtegida';
+import GestionProveedoresPage from './pages/GestionProveedoresPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     <Route path="/admin" element={<MenuAdminPage />} />
     <Route path="/usuarios" element={<GestionUsuariosPage />} />
     <Route path="/productos" element={<GestionProductosPage />} />
+    <Route path="/proveedores" element={<GestionProveedoresPage />} />
   </Route>
 
   {/* Todo lo que está aquí dentro es solo para almacenista */}

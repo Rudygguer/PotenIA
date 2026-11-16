@@ -12,6 +12,8 @@ import IconoDashboard from '../../public/icons/Dashboard metricas.svg?react';
 import IconoQR from '../../public/icons/Generar QR.svg?react';
 import IconoReportes from '../../public/icons/Reporte de daños.svg?react';
 import IconoIA from '../../public/icons/Generar informe IA.svg?react';
+import IconoProveedores from '../../public/icons/Gestion de proveedores.svg?react';
+//import IconoUbicaciones from '../../public/icons/Gestion de ubicaciones.svg?react';
 
 function MenuAdminPage() {
     const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
@@ -52,6 +54,10 @@ function MenuAdminPage() {
                 <Link to="/productos" className="icono-grande">
                     <IconoProductos className="icono-svg" />
                     <span>Gestión de productos</span>
+                </Link>
+                <Link to="/proveedores" className="icono-grande">
+                    <IconoProveedores className="icono-svg" />
+                    <span>Gestión de proveedores</span>
                 </Link>
                 <Link to="/dashboard" className="icono-grande">
                     <IconoDashboard className="icono-svg" />
